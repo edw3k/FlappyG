@@ -83,13 +83,18 @@ struct ContentView: View {
                                 .padding(.bottom)
                     }
                 }
-                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                        .position(x: geometry.size.width / 2, y: geometry.size.height - 60)
             } else if viewModel.gameWon {
                 VStack {
-                    Text("YOU WON")
+                    Text("YOU WON!")
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundColor(.green)
+                            .padding(.bottom)
+                    Image("Victory")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 200, height: 200)
                             .padding(.bottom)
 
                     Button(action: {
@@ -104,7 +109,7 @@ struct ContentView: View {
                                 .padding(.bottom)
                     }
                 }
-                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+                        .position(x: geometry.size.width / 2, y: geometry.size.height - 1500)
             }
             HStack {
                 Text("Score: \(viewModel.score)")
