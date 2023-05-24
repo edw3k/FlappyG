@@ -61,6 +61,16 @@ class ViewModel: ObservableObject {
         self.player = Player(center: center, width: width, height: height)
     }
 
+    func restartGame() {
+        self.player = nil
+        self.obstacles.removeAll()
+        self.step = 0
+        self.score = 0
+        self.gameOver = false
+        createPlayer(center: CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.maxY - 100), width: 50, height: 50)
+        createDisplayLink()
+    }
+
     func pause() {
         self.displayLink?.remove(from: .current, forMode: .default)
     }

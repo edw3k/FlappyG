@@ -32,10 +32,23 @@ struct ContentView: View {
                     }
 
             if viewModel.gameOver {
-                Text("GAME OVER")
-                        .font(.largeTitle)
-                        .fontWeight(.bold)
-                        .foregroundColor(.red)
+                VStack {
+                    Text("GAME OVER")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+
+                    Button(action: {
+                        viewModel.restartGame()
+                    }) {
+                        Text("Restart")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                    }
+                }
                         .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
             Text("Score: \(viewModel.score)")
@@ -50,8 +63,6 @@ struct ContentView: View {
                 .edgesIgnoringSafeArea(.all)
         }
     }
-
-
 
 
 struct ContentView_Previews: PreviewProvider {
