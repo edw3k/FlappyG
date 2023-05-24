@@ -135,7 +135,7 @@ struct ContentView: View {
                             .fontWeight(.bold)
                             .foregroundColor(.red)
                             .padding(.bottom)
-                            .position(x: geometry.size.width - 230, y: geometry.safeAreaInsets.top + 60)
+                            .position(x: geometry.size.width - 300, y: geometry.safeAreaInsets.top + 80)
                             .offset(x: -20, y: 0)
                             .zIndex(1)
                 }

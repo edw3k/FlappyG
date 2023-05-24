@@ -52,10 +52,11 @@ class ViewModel: ObservableObject {
             obstacleSpeedRange = 100...110
         }
 
-        let obstacle = Obstacle(center: CGPoint(x: UIScreen.main.bounds.maxX, y: CGFloat.random(in: 50..<UIScreen.main.bounds.maxY-50)), width: 100, height: 100)
+        let obstacle = Obstacle(center: CGPoint(x: -50, y: CGFloat.random(in: 50..<UIScreen.main.bounds.maxY-50)), width: 100, height: 100)
         obstacle.speed = CGFloat.random(in: obstacleSpeedRange)
         self.obstacles.append(obstacle)
     }
+
 
     @objc private func gameLoop(displayLink: CADisplayLink) {
         let currentTime = displayLink.timestamp
