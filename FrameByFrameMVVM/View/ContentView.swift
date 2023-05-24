@@ -53,6 +53,27 @@ struct ContentView: View {
                     }
                 }
                         .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
+            } else if viewModel.gameWon {
+                VStack {
+                    Text("YOU WON")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.green)
+                            .padding(.bottom)
+
+                    Button(action: {
+                        viewModel.restartGame()
+                    }) {
+                        Text("Restart")
+                                .font(.headline)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color.blue)
+                                .cornerRadius(10)
+                                .padding(.bottom)
+                    }
+                }
+                        .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
             HStack {
                 Text("Score: \(viewModel.score)")

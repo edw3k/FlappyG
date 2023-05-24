@@ -11,7 +11,7 @@ class ViewModel: ObservableObject {
     var score = 0
     private var currentLevel: GameLevel = .Easy
     var gameOver = false
-
+    @Published var gameWon = false
     private var lastUpdateTime: TimeInterval = 0
 
 
@@ -29,7 +29,7 @@ class ViewModel: ObservableObject {
     }
 
     func updateLevel() {
-        if score >= 50 && currentLevel == .Easy {
+        if score >= 100 && currentLevel == .Easy {
             currentLevel = .Hard
             // Adjust the obstacle creation frequency for the hard level
             createObstacle()
@@ -83,6 +83,11 @@ class ViewModel: ObservableObject {
                 self.pause()
             }
         }
+
+        if score >= 200 {
+            gameWon = true
+            pause()
+        }
     }
 
     func createPlayer(center: CGPoint, width: CGFloat, height: CGFloat) {
@@ -97,6 +102,7 @@ class ViewModel: ObservableObject {
         self.gameOver = false
         createPlayer(center: CGPoint(x: UIScreen.main.bounds.midX, y: UIScreen.main.bounds.maxY - 100), width: 50, height: 50)
         createDisplayLink()
+        gameWon = false
     }
 
     func pause() {
