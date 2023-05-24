@@ -9,16 +9,44 @@ class ViewModel: ObservableObject {
 
     private var step = 0
     var score = 0
-
+    private var currentLevel: GameLevel = .Easy
     var gameOver = false
 
     private var lastUpdateTime: TimeInterval = 0
+
 
     func createDisplayLink() {
         displayLink = CADisplayLink(target: self, selector: #selector(gameLoop))
         displayLink?.add(to: .current, forMode: .default)
 
         lastUpdateTime = displayLink?.timestamp ?? 0
+    }
+
+
+    enum GameLevel {
+        case Easy
+        case Hard
+    }
+
+    func updateLevel() {
+        if score >= 50 && currentLevel == .Easy {
+            currentLevel = .Hard
+            // Adjust the obstacle creation frequency for the hard level
+            createObstacle()
+        }
+    }
+
+    private func createObstacle() {
+        var obstacleSpeedRange: ClosedRange<CGFloat>
+        if currentLevel == .Easy {
+            obstacleSpeedRange = 1...3
+        } else {
+            obstacleSpeedRange = 100...110
+        }
+
+        let obstacle = Obstacle(center: CGPoint(x: UIScreen.main.bounds.maxX, y: CGFloat.random(in: 50..<UIScreen.main.bounds.maxY-50)), width: 100, height: 100)
+        obstacle.speed = CGFloat.random(in: obstacleSpeedRange)
+        self.obstacles.append(obstacle)
     }
 
     @objc private func gameLoop(displayLink: CADisplayLink) {

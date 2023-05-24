@@ -21,9 +21,10 @@ struct ContentView: View {
                 }
 
                 Image("adria")
-                        .frame(width: viewModel.player?.width, height: viewModel.player?.height)
+                        .frame(width: viewModel.player?.width , height: viewModel.player?.height)
                         .position(viewModel.player?.center ?? CGPoint())
                         .gesture(dragGesture)
+
             }
                     .edgesIgnoringSafeArea(.all)
                     .onAppear {
@@ -37,6 +38,7 @@ struct ContentView: View {
                             .font(.largeTitle)
                             .fontWeight(.bold)
                             .foregroundColor(.red)
+                            .padding(.bottom)
 
                     Button(action: {
                         viewModel.restartGame()
@@ -47,18 +49,49 @@ struct ContentView: View {
                                 .padding()
                                 .background(Color.blue)
                                 .cornerRadius(10)
+                                .padding(.bottom)
                     }
                 }
                         .position(x: geometry.size.width / 2, y: geometry.size.height / 2)
             }
-            Text("Score: \(viewModel.score)")
-                    .font(.headline)
-                    .fontWeight(.bold)
-                    .foregroundColor(.white)
-                    .padding()
-                    .background(Color.black.opacity(0.5))
-                    .cornerRadius(10)
-                    .position(x: geometry.size.width / 2, y: geometry.safeAreaInsets.top + 40)
+            HStack {
+                Text("Score: \(viewModel.score)")
+                        .font(.headline)
+                        .fontWeight(.bold)
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Color.black.opacity(0.5))
+                        .cornerRadius(10)
+                        .position(x: geometry.safeAreaInsets.leading + 100, y: geometry.safeAreaInsets.top + 50)
+                        .offset(x: 10, y: 0)
+                        .zIndex(1)
+
+                Spacer()
+
+                if viewModel.score < 100 {
+                    Text("Level EASY")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.green)
+                            .padding(.bottom)
+                            .position(x: geometry.size.width - 300, y: geometry.safeAreaInsets.top + 60)
+                            .offset(x: -20, y: 0)
+                            .zIndex(1)
+                } else if viewModel.score >= 100 {
+                    Text("LEVEL HARD")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .foregroundColor(.red)
+                            .padding(.bottom)
+                            .position(x: geometry.size.width - 230, y: geometry.safeAreaInsets.top + 60)
+                            .offset(x: -20, y: 0)
+                            .zIndex(1)
+                }
+
+                Spacer()
+            }
+
+
         }
                 .edgesIgnoringSafeArea(.all)
         }
