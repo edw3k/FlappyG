@@ -65,10 +65,10 @@ struct ContentView: View {
 
             if viewModel.gameOver {
                 VStack {
-                    Text("GAME OVER")
+                    Text("GAME OVER! 🤯")
                             .font(.largeTitle)
                             .fontWeight(.bold)
-                            .foregroundColor(.red)
+                            .foregroundColor(.black)
                             .padding(.bottom)
 
                     Button(action: {

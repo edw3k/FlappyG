@@ -70,7 +70,8 @@ class ViewModel: ObservableObject {
 
         // create an obstacle every 5s
         if step % (60 * 3) == 0 && self.obstacles.count < 10 {
-            let obstacle = Obstacle(center: CGPoint(x: UIScreen.main.bounds.midX, y: CGFloat.random(in: 50 ..< UIScreen.main.bounds.maxY - 50)),
+            let obstacleCenterX: CGFloat = (currentLevel == .Easy) ? -50 : UIScreen.main.bounds.midX
+            let obstacle = Obstacle(center: CGPoint(x: obstacleCenterX, y: CGFloat.random(in: 50 ..< UIScreen.main.bounds.maxY - 50)),
                     width: 100,
                     height: 100)
             self.obstacles.append(obstacle)
@@ -98,6 +99,7 @@ class ViewModel: ObservableObject {
             pause()
         }
     }
+
 
     func createPlayer(center: CGPoint, width: CGFloat, height: CGFloat) {
         self.player = Player(center: center, width: width, height: height)
