@@ -1,5 +1,7 @@
 import SwiftUI
-
+import AVFoundation
+import  CoreGraphics
+import Foundation
 class ViewModel: ObservableObject {
 
     private var displayLink: CADisplayLink?
@@ -13,6 +15,12 @@ class ViewModel: ObservableObject {
     var gameOver = false
     @Published var gameWon = false
     private var lastUpdateTime: TimeInterval = 0
+    private var audioPlayer: AVAudioPlayer?
+    @Published private var isPlaying: Bool = false
+
+    init() {
+        setUpSounds()
+    }
 
 
     func createDisplayLink() {
@@ -108,5 +116,30 @@ class ViewModel: ObservableObject {
     func pause() {
         self.displayLink?.remove(from: .current, forMode: .default)
     }
+    private func setUpSounds() {
+        if let soundURL = Bundle.main.url(forResource: "cancion", withExtension: "mp3") {
+            do {
+                audioPlayer = try AVAudioPlayer(contentsOf: soundURL)
+                audioPlayer?.prepareToPlay()
+                audioPlayer?.numberOfLoops  = Int(-10)
+            } catch {
+                fatalError("AVAudioPlayer error")
+            }
+        }
+    }
 
+    func playSound() {
+        audioPlayer?.play()
+        isPlaying = true
+    }
+
+    func pauseSound() {
+        audioPlayer?.pause()
+        isPlaying = false
+    }
+
+    // Toggle usado para mostrar el pause en breathing
+    func isSound() -> Bool {
+        return isPlaying
+    }
 }

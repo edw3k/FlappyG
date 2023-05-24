@@ -26,6 +26,37 @@ struct ContentView: View {
                         .gesture(dragGesture)
 
             }
+                    // Play the song on appear
+                    .onAppear() {
+                        viewModel.playSound()
+                    }
+
+            HStack {
+                Spacer()
+
+                Button(action: {
+                    if viewModel.isSound() {
+                        viewModel.pauseSound()
+                    } else {
+                        viewModel.playSound()
+                    }
+                }) {
+                    if viewModel.isSound() {
+                        Image(systemName: "speaker.fill")
+                                .font(.title)
+                    } else {
+                        Image(systemName: "speaker.slash.fill")
+                                .font(.title)
+                    }
+                }
+                        .padding()
+                        .foregroundColor(.white)
+                        .background(Color.black.opacity(0.5))
+                        .cornerRadius(10)
+                        .position(x: geometry.size.width - 60, y: geometry.size.height - 60) // Place at the bottom right
+            }
+
+
                     .edgesIgnoringSafeArea(.all)
                     .onAppear {
                         viewModel.createPlayer(center: CGPoint(x: geometry.size.width / 2, y: geometry.size.height - 100), width: 50, height: 50)
